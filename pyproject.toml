@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "humano"
+version = "0.1.0"
+description = "A Python package for humanizing AI-generated or robotic text using techniques like DIPPER, HMGC, and ADAT."
+authors = [
+    {name = "Khushiyant", email = "khushiyant2002@gmail.com"}
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["ai", "text", "humanization", "nlp", "detection", "bypass"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "nltk>=3.8",
+    "openai>=0.27.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=22.0",
+    "flake8>=5.0",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/khushiyant/humano"
+Repository = "https://github.com/khushiyant/humano"
+Documentation = "https://github.com/khushiyant/humano#readme"
+"Bug Tracker" = "https://github.com/khushiyant/humano/issues"
+
+[project.scripts]
+humano = "humano.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["humano*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+

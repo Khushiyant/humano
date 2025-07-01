@@ -22,7 +22,9 @@ class TestHumanizeFunction:
         result = humanize(self.sample_text)
         
         assert 'success' in result
-        assert result['success'] is True
+        if not result['success']:
+            print(f"Error: {result.get('error', 'Unknown error')}")
+        assert result['success'] is True, f"Humanization failed: {result.get('error', 'Unknown error')}"
         assert 'humanized_content' in result
         assert len(result['humanized_content']) > 0
         assert result['humanized_content'] != self.sample_text
@@ -31,7 +33,9 @@ class TestHumanizeFunction:
         """Test different strength levels."""
         for strength in ["low", "medium", "high"]:
             result = humanize(self.sample_text, strength=strength)
-            assert result['success'] is True
+            if not result['success']:
+                print(f"Error for strength {strength}: {result.get('error', 'Unknown error')}")
+            assert result['success'] is True, f"Humanization failed for strength {strength}: {result.get('error', 'Unknown error')}"
             assert 'humanized_content' in result
             assert 'message' in result
             assert len(result['humanized_content']) > 0

@@ -60,6 +60,3 @@ python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.4.1"
-

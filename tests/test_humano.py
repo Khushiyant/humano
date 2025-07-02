@@ -26,6 +26,8 @@ class TestHumanizeFunction:
             print(f"Error: {result.get('error', 'Unknown error')}")
         assert result['success'] is True, f"Humanization failed: {result.get('error', 'Unknown error')}"
         assert 'humanized_content' in result
+        assert 'context_detected' in result
+        assert 'transformations_applied' in result
         assert len(result['humanized_content']) > 0
         assert result['humanized_content'] != self.sample_text
     
@@ -48,6 +50,29 @@ class TestHumanizeFunction:
         assert result['success'] is False
         assert 'error' in result
         assert "too short" in result['error'].lower()
+    
+    def test_humanize_personality_types(self):
+        """Test different personality types."""
+        personalities = ["balanced", "casual", "confident", "analytical"]
+        
+        for personality in personalities:
+            result = humanize(self.sample_text, strength="medium", personality=personality)
+            if not result['success']:
+                print(f"Error for personality {personality}: {result.get('error', 'Unknown error')}")
+            assert result['success'] is True, f"Humanization failed for personality {personality}"
+            assert 'humanized_content' in result
+            assert len(result['humanized_content']) > 0
+    
+    def test_context_detection(self):
+        """Test that context detection works."""
+        result = humanize(self.sample_text)
+        
+        assert result['success'] is True
+        assert 'context_detected' in result
+        context = result['context_detected']
+        assert isinstance(context, dict)
+        assert 'formality' in context
+        assert isinstance(context['formality'], (int, float))
     
     def test_humanize_empty_text_error(self):
         """Test that empty text returns error."""

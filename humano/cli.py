@@ -44,9 +44,10 @@ def main():
         epilog="""
 Examples:
   humano "Your AI-generated text here"
-  humano input.txt -o output.txt
-  echo "Text to humanize" | humano
-  humano -i input.txt --strength high
+  humano "Text" --strength high --personality confident
+  humano input.txt -o output.txt --personality casual
+  echo "Text to humanize" | humano --strength medium
+  humano -i input.txt --strength high --personality analytical
         """
     )
     
@@ -71,6 +72,13 @@ Examples:
         choices=['low', 'medium', 'high'],
         default='medium',
         help='Humanization strength level (default: medium)'
+    )
+    
+    parser.add_argument(
+        '-p', '--personality',
+        choices=['balanced', 'casual', 'confident', 'analytical'],
+        default='balanced',
+        help='Writing personality to inject (default: balanced)'
     )
     
     parser.add_argument(
@@ -111,11 +119,17 @@ Examples:
             sys.exit(1)
         
         # Humanize content
-        result = service.humanize_content(content.strip(), args.strength)
+        result = service.humanize_content(content.strip(), args.strength, args.personality)
         
         if result['success']:
             # Write output
             write_output(result['humanized_content'], args.output_file)
+            
+            # Show additional info if verbose
+            if args.output_file is None:  # Only show extra info when outputting to stdout
+                print(f"\n[Transformations: {result.get('transformations_applied', 0)}, "
+                      f"Context: {result.get('context_detected', {}).get('formality', 0):.2f} formality]", 
+                      file=sys.stderr)
         else:
             print(f"Error: {result['error']}", file=sys.stderr)
             sys.exit(1)

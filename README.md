@@ -114,20 +114,6 @@ Humano analyzes your text to detect:
 
 ## Troubleshooting
 
-### NLTK Data Issues
-
-Humano automatically downloads required NLTK data on first use. If you encounter NLTK-related errors:
-
-1. **Automatic Download**: The package will attempt to download missing NLTK resources automatically
-2. **Manual Download**: If automatic download fails, run:
-   ```python
-   import nltk
-   nltk.download('punkt_tab')
-   nltk.download('wordnet')
-   nltk.download('averaged_perceptron_tagger')
-   ```
-3. **Network Issues**: Ensure you have internet access for the initial NLTK data download
-
 ### Common Issues
 
 - **Minimum Text Length**: Text must be at least 20 characters

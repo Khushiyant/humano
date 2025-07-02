@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "humano"
-version = "2.0.0"
+version = "2.0.1"
 description = "Advanced AI text humanization with context-aware processing, personality injection, and sophisticated NLP transformations."
 authors = [
     {name = "Khushiyant", email = "khushiyant2002@gmail.com"}
